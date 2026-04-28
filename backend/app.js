@@ -9,8 +9,8 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // local frontend
-      "https://task-manager-ashen-two-59.vercel.app/", // deployed frontend
+      "http://localhost:5173",
+      "https://task-manager-ashen-two-59.vercel.app", // ✅ no slash
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
