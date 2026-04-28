@@ -30,6 +30,11 @@ export default function Dashboard() {
     fetchTasks();
   };
 
+  const editTask = async (id, title) => {
+    await API.put(`/tasks/${id}`, { title });
+    fetchTasks();
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -56,6 +61,7 @@ export default function Dashboard() {
           task={task}
           onToggle={toggleTask}
           onDelete={deleteTask}
+          onEdit={editTask}
         />
       ))}
     </MainLayout>
