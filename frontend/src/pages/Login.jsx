@@ -1,0 +1,43 @@
+import { useState } from "react";
+import API from "../api/axios";
+import { useNavigate, Link } from "react-router-dom";
+
+export default function Login() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+
+  const submit = async () => {
+    const res = await API.post("/auth/login", form);
+    localStorage.setItem("token", res.data.token);
+    navigate("/dashboard");
+  };
+
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <div className="p-6 rounded shadow w-80">
+        <h2 className="mb-4 text-xl">Login</h2>
+
+        <input
+          className="w-full p-2 mb-2 border"
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+
+        <input
+          type="password"
+          className="w-full p-2 mb-2 border"
+          placeholder="Password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+
+        <button className="w-full p-2 text-white bg-blue-500" onClick={submit}>
+          Login
+        </button>
+
+        <p className="mt-2 text-sm">
+          No account? <Link to="/signup">Signup</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
