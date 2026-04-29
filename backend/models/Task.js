@@ -1,16 +1,29 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
+import User from "./User.js";
 
-const taskSchema = new mongoose.Schema({
-  title: String,
-  status: {
-    type: String,
-    enum: ["Pending", "Completed"],
-    default: "Pending",
+const Task = sequelize.define("Task", {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    defaultValue: "",
+  },
+  status: {
+    type: DataTypes.ENUM("Pending", "Completed"),
+    defaultValue: "Pending",
   },
 });
 
-export default mongoose.model("Task", taskSchema);
+// Relationship — each task belongs to one user
+User.hasMany(Task, { foreignKey: "userId", onDelete: "CASCADE" });
+Task.belongsTo(User, { foreignKey: "userId" });
+
+export default Task;

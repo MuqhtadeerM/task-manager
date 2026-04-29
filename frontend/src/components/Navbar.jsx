@@ -1,17 +1,31 @@
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+const Navbar = () => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
-    <div className="flex justify-between p-4 text-white bg-gray-800">
-      <h1 className="font-bold">Task Manager</h1>
-      <button onClick={logout}>Logout</button>
-    </div>
+    <nav className="bg-indigo-600 text-white px-6 py-4 flex justify-between items-center shadow">
+      <h1 className="text-xl font-bold tracking-wide">TaskFlow</h1>
+      {user && (
+        <div className="flex items-center gap-4">
+          <span className="text-sm opacity-90">Hi, {user.name}</span>
+          <button
+            onClick={handleLogout}
+            className="bg-white text-indigo-600 text-sm font-medium px-4 py-1.5 rounded-full hover:bg-indigo-50 transition"
+          >
+            Logout
+          </button>
+        </div>
+      )}
+    </nav>
   );
-}
+};
+
+export default Navbar;

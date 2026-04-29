@@ -6,18 +6,11 @@ import errorHandler from "./middleware/errorMiddleware.js";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://task-manager-ashen-two-59.vercel.app", // ✅ no slash
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }),
-);
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
+app.get("/", (req, res) => res.json({ status: "API is running" }));
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 

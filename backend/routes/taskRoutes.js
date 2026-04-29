@@ -1,5 +1,6 @@
 import express from "express";
 import auth from "../middleware/authMiddleware.js";
+import { taskRules, handleValidation } from "../middleware/validate.js";
 import {
   getTasks,
   createTask,
@@ -12,7 +13,7 @@ const router = express.Router();
 router.use(auth);
 
 router.get("/", getTasks);
-router.post("/", createTask);
+router.post("/", taskRules, handleValidation, createTask);
 router.put("/:id", updateTask);
 router.delete("/:id", deleteTask);
 
