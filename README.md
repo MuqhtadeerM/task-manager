@@ -138,8 +138,8 @@ Deploy frontend (Vercel) and backend (Render).
 
 ## 🌐 Live Links
 
-* Frontend: https://your-frontend.vercel.app
-* Backend: https://your-backend.onrender.com
+* Frontend: [https://your-frontend.vercel.app](https://task-manager-neon-omega.vercel.app/login)
+* Backend: [https://your-backend.onrender.com](https://task-manager-8ega.onrender.com)
 
 ---
 
