@@ -16,10 +16,12 @@ const Signup = () => {
     setLoading(true);
     try {
       const { data } = await api.post("/auth/signup", form);
+
       login(data.token, data.user);
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
+      console.log(err);
     } finally {
       setLoading(false);
     }
